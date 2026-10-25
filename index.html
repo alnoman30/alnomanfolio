@@ -8,7 +8,7 @@
     <title>Abdullah Al Noman | Frontend Developer Portfolio</title>
     <meta
       name="description"
-      content="Abdullah Al Noman is a frontend developer building fast, responsive, accessible websites. Explore projects, skills, and get in touch for your next web project."
+      content="Abdullah Al Noman is a frontend developer building fast, responsive, accessible websites. See projects and get in touch."
     />
     <meta name="author" content="Abdullah Al Noman" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -29,22 +29,22 @@
     />
     <meta
       property="og:description"
-      content="Frontend developer building fast, responsive, accessible websites. See my work and let's build something together."
+      content="Frontend developer building fast, responsive, accessible websites. See my work and let’s build something together."
     />
     <meta property="og:url" content="https://alnoman.vercel.app/" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/dxcqb5aj5/image/upload/v1772097983/portfolio_-_Abdullah_Al_Noman_jtvbsr.png"
+      content="https://res.cloudinary.com/dxcqb5aj5/image/upload/v1792931546/abdullah-al-noman_c04epk.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
       content="Abdullah Al Noman, Frontend Developer"
     />
 
-    <!-- Twitter / X -->
+    <!-- Social preview card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@alnoman30hehe" />
-    <meta name="twitter:creator" content="@alnoman30hehe" />
     <meta
       name="twitter:title"
       content="Abdullah Al Noman | Frontend Developer Portfolio"
@@ -59,41 +59,54 @@
     />
 
     <!-- Favicons -->
-    <link rel="icon" href="assets/images/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" href="/assets/images/favicon/favicon.ico" sizes="any" />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="assets/images/favicon/favicon-32.png"
+      href="/assets/images/favicon/favicon-32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="assets/images/favicon/favicon-16.png"
+      href="/assets/images/favicon/favicon-16.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/images/favicon/favicon-180.png"
+      href="/assets/images/favicon/favicon-180.png"
     />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/splide.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/splide.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
 
     <!-- Structured data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Abdullah Al Noman",
-        "jobTitle": "Frontend Developer",
-        "url": "https://alnoman.vercel.app/",
-        "sameAs": [
-          "https://www.linkedin.com/in/abdullah-al-noman30/",
-          "https://github.com/alnoman30",
-          "https://www.instagram.com/noman.hehe/"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://alnoman.vercel.app/#website",
+            "url": "https://alnoman.vercel.app/",
+            "name": "Abdullah Al Noman",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://alnoman.vercel.app/#person",
+            "name": "Abdullah Al Noman",
+            "jobTitle": "Frontend Developer",
+            "url": "https://alnoman.vercel.app/",
+            "image": "https://res.cloudinary.com/dxcqb5aj5/image/upload/v1772097983/portfolio_-_Abdullah_Al_Noman_jtvbsr.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/abdullah-al-noman30/",
+              "https://github.com/alnoman30",
+              "https://www.instagram.com/noman.hehe/"
+            ]
+          }
         ]
       }
     </script>
@@ -946,7 +959,6 @@
 
           <!-- Responsive Image Wrapper with Max-Width Constraint on Mobile -->
           <div class="w-full overflow-hidden rounded-2xl shrink-0">
-           
             <img
               src="assets/images/about-me.webp"
               alt="Portrait of Abdullah Al Noman, frontend developer"

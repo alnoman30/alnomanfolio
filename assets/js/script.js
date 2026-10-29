@@ -1245,7 +1245,7 @@
 
 // Load more project btn
 (function () {
-  const PER_PAGE = 6;
+  const PER_PAGE = 4;
 
   const grid = document.getElementById("works-grid");
   const btn = document.getElementById("load-more-btn");
@@ -1297,3 +1297,19 @@
     nextBatch[0].focus({ preventScroll: true });
   });
 })();
+
+
+// 
+document.querySelectorAll("[data-loop]").forEach(function (belt) {
+      var originals = Array.from(belt.children);
+      var clone = function (n) {
+        var c = n.cloneNode(true);
+        c.setAttribute("aria-hidden", "true");
+        c.setAttribute("tabindex", "-1");
+        belt.appendChild(c);
+      };
+      var guard = 0;
+      while (belt.scrollWidth < window.innerWidth * 1.2 && guard++ < 6) originals.forEach(clone);
+      var setCount = belt.children.length;
+      for (var i = 0; i < setCount; i++) clone(belt.children[i]);
+    });

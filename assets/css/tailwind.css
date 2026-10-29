@@ -159,6 +159,10 @@ html.lenis body {
   }
 }
 
+@keyframes igscroll {
+      to { transform: translateX(-50%); }
+    }
+
 /* Dots & Spotlight Backgrounds */
 .dots {
   background-image: radial-gradient(

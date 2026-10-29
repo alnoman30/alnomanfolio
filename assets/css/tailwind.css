@@ -102,6 +102,8 @@ html.lenis body {
   pointer-events: none;
 }
 
+
+
 /* Custom Scrollbar (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   width: 10px;

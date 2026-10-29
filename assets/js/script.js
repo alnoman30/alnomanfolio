@@ -674,7 +674,6 @@
      11. RESUME (pinned, scrubbed timeline)
      Everything lives inside this function so its variables stay private.
      ====================================================================== */
-
   function initResume() {
     const cardsWrap = $("#cards");
     const wrap = $(".pin-wrap");
@@ -682,8 +681,8 @@
     const tabs = $$(".tab-btn");
     if (!cardsWrap || !wrap || !pill || !tabs.length) return;
 
-    /* ---- 11.1 Content (edit this and the markup rebuilds itself) ---- */
-const DATA = [
+    /* ---- Content (edit this and the markup rebuilds itself) ---- */
+    const DATA = [
       {
         tab: "Education",
         items: [
@@ -731,88 +730,88 @@ const DATA = [
       },
     ];
 
-    /* ---- 11.2 Build markup ---- */
+    /* ---- Build markup ---- */
     const pad = (n) => String(n).padStart(2, "0");
 
     cardsWrap.innerHTML = DATA.map((g) => {
       const n = g.items.length;
       return `
-      <article class="res-card border-glow absolute inset-0 rounded-[28px] bg-[#07080a]/85 backdrop-blur-xl overflow-hidden will-change-transform">
-        <div class="dots pointer-events-none absolute inset-0"></div>
-        <div class="dots-hot pointer-events-none absolute inset-0"></div>
-        <div class="glow pointer-events-none absolute inset-0"></div>
+    <article role="tabpanel" aria-label="${g.tab}" class="res-card border-glow absolute inset-0 rounded-[28px] bg-[#07080a]/85 backdrop-blur-xl overflow-hidden will-change-transform">
+      <div class="dots pointer-events-none absolute inset-0"></div>
+      <div class="dots-hot pointer-events-none absolute inset-0"></div>
+      <div class="glow pointer-events-none absolute inset-0"></div>
 
-        <!-- giant outlined index numerals -->
+      <!-- giant outlined index numerals -->
+      ${g.items
+        .map(
+          (_, i) => `
+        <span class="res-num num-stroke pointer-events-none select-none absolute right-4 md:right-12 -bottom-[0.14em] text-[130px] md:text-[250px] font-extrabold leading-none tracking-tighter">${pad(i + 1)}</span>
+      `,
+        )
+        .join("")}
+
+      <!-- progress rail with nodes -->
+      <div class="hidden md:block absolute left-8 lg:left-12 top-14 bottom-14 w-px bg-white/10">
+        <div class="res-fill absolute inset-0 bg-linear-to-b from-primary to-secondary"></div>
         ${g.items
           .map(
             (_, i) => `
-          <span class="res-num num-stroke pointer-events-none select-none absolute right-4 md:right-12 -bottom-[0.14em] text-[130px] md:text-[250px] font-extrabold leading-none tracking-tighter">${pad(i + 1)}</span>
+          <span class="res-node absolute -left-[5px] size-[11px] rounded-full bg-[#0c0d10] border border-white/25"
+                style="top:calc(${n > 1 ? (i / (n - 1)) * 100 : 0}% - 5px)">
+            <i class="res-dot absolute -inset-px rounded-full bg-linear-to-br from-primary to-secondary"></i>
+          </span>
         `,
           )
           .join("")}
+      </div>
 
-        <!-- progress rail with nodes -->
-        <div class="hidden md:block absolute left-8 lg:left-12 top-14 bottom-14 w-px bg-white/10">
-          <div class="res-fill absolute inset-0 bg-linear-to-b from-primary to-secondary"></div>
-          ${g.items
-            .map(
-              (_, i) => `
-            <span class="res-node absolute -left-[5px] size-[11px] rounded-full bg-[#0c0d10] border border-white/25"
-                  style="top:calc(${n > 1 ? (i / (n - 1)) * 100 : 0}% - 5px)">
-              <i class="res-dot absolute -inset-px rounded-full bg-linear-to-br from-primary to-secondary"></i>
-            </span>
-          `,
-            )
-            .join("")}
-        </div>
+      <div class="relative h-full mx-auto max-w-5xl flex flex-col gap-6 px-6 py-6 md:grid md:grid-cols-2 md:grid-rows-[minmax(0,1fr)] md:gap-14 md:px-20 md:py-14">
 
-        <div class="relative h-full mx-auto max-w-5xl flex flex-col gap-6 px-6 py-6 md:grid md:grid-cols-2 md:grid-rows-[minmax(0,1fr)] md:gap-14 md:px-20 md:py-14">
+        <!-- gradient visual -->
+        <div class="res-tilt md:order-2 md:self-start md:justify-self-end w-full md:max-w-[420px] h-36 md:h-[320px] shrink-0">
+          <div class="res-flip h-full w-full">
+            <div class="res-visual grad-card relative h-full w-full rounded-2xl overflow-hidden shadow-[0_30px_80px_-40px_rgba(255,77,28,.2)]">
+              <div class="sheen pointer-events-none"></div>
+              <div class="pointer-events-none absolute -right-12 -top-12 size-56 rounded-full border border-white/35 animate-[spin_18s_linear_infinite]"></div>
+              <div class="pointer-events-none absolute -right-4 -top-4 size-36 rounded-full border border-dashed border-white/30 animate-[spin_26s_linear_infinite_reverse]"></div>
+              <div class="pointer-events-none absolute -left-20 -bottom-20 size-72 rounded-full border border-dashed border-white/25 animate-[spin_30s_linear_infinite]"></div>
+              <div class="pointer-events-none absolute -top-16 -left-10 size-52 rounded-full bg-white/10 blur-3xl"></div>
 
-          <!-- gradient visual -->
-          <div class="res-tilt md:order-2 md:self-start md:justify-self-end w-full md:max-w-[420px] h-36 md:h-[320px] shrink-0">
-            <div class="res-flip h-full w-full">
-              <div class="res-visual grad-card relative h-full w-full rounded-2xl overflow-hidden shadow-[0_30px_80px_-40px_rgba(255,77,28,.2)]">
-                <div class="sheen pointer-events-none"></div>
-                <div class="pointer-events-none absolute -right-12 -top-12 size-56 rounded-full border border-white/35 animate-[spin_18s_linear_infinite]"></div>
-                <div class="pointer-events-none absolute -right-4 -top-4 size-36 rounded-full border border-dashed border-white/30 animate-[spin_26s_linear_infinite_reverse]"></div>
-                <div class="pointer-events-none absolute -left-20 -bottom-20 size-72 rounded-full border border-dashed border-white/25 animate-[spin_30s_linear_infinite]"></div>
-                <div class="pointer-events-none absolute -top-16 -left-10 size-52 rounded-full bg-white/10 blur-3xl"></div>
-
-                ${g.items
-                  .map(
-                    (it) => `
-                  <p class="res-label absolute inset-0 grid place-items-center px-8 text-center text-lg md:text-2xl font-semibold leading-snug text-white">${it.label}</p>
-                `,
-                  )
-                  .join("")}
-
-              </div>
-            </div>
-          </div>
-
-          <!-- scrolling list -->
-          <div class="res-viewport fade-b md:order-1 relative flex-1 min-h-0 overflow-hidden">
-            <div class="res-list relative will-change-transform">
               ${g.items
                 .map(
                   (it) => `
-                <div class="res-item pb-10 md:pb-14">
-                  <h3 class="res-title text-2xl md:text-[28px] font-bold leading-tight text-white">${it.title}</h3>
-                  <p class="mt-4 md:mt-5 text-base md:text-xl font-medium bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">${it.meta}</p>
-                  <p class="mt-3 md:mt-4 max-w-md text-sm md:text-base leading-7 text-gray-300">${it.text}</p>
-                </div>
+                <p class="res-label absolute inset-0 grid place-items-center px-8 text-center text-lg md:text-2xl font-semibold leading-snug text-white">${it.label}</p>
               `,
                 )
                 .join("")}
-              <div class="res-spacer" aria-hidden="true"></div>
             </div>
           </div>
-
         </div>
-      </article>`;
+
+        <!-- NATIVE inner scroll area (Lenis ignores it, scroll chains to the page at the ends) -->
+        <div data-lenis-prevent
+             class="res-viewport fade-b md:order-1 relative flex-1 min-h-0 overflow-y-auto overscroll-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div class="res-list relative">
+            ${g.items
+              .map(
+                (it) => `
+              <div class="res-item cursor-pointer pb-10 md:pb-14">
+                <h3 class="res-title text-2xl md:text-[28px] font-bold leading-tight text-white">${it.title}</h3>
+                <p class="mt-4 md:mt-5 text-base md:text-xl font-medium bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">${it.meta}</p>
+                <p class="mt-3 md:mt-4 max-w-md text-sm md:text-base leading-7 text-gray-300">${it.text}</p>
+              </div>
+            `,
+              )
+              .join("")}
+            <div class="res-spacer" aria-hidden="true"></div>
+          </div>
+        </div>
+
+      </div>
+    </article>`;
     }).join("");
 
-    /* ---- 11.3 Setup ---- */
+    /* ---- Setup ---- */
     const DIM = { opacity: 0.25, filter: "blur(2px)" };
     const ACTIVE = { opacity: 1, filter: "blur(0px)" };
 
@@ -842,32 +841,36 @@ const DATA = [
       nums: $$(".res-num", card),
       nodes: $$(".res-node", card),
       dots: $$(".res-dot", card),
-      list: $(".res-list", card),
       fill: $(".res-fill", card),
       tilt: $(".res-tilt", card),
       flip: $(".res-flip", card),
       visual: $(".res-visual", card),
+      viewport: $(".res-viewport", card),
+      spacer: $(".res-spacer", card),
+      active: -1,
     }));
 
-    // Spacer lets the last item scroll all the way to the top
+    // Small spacer so the last item can reach the active zone without a long dead scroll
     function setSpacers() {
-      $$(".res-spacer").forEach((s) => {
-        s.style.height = s.closest(".res-viewport").clientHeight + "px";
+      refs.forEach((r) => {
+        r.spacer.style.height =
+          Math.round(r.viewport.clientHeight * 0.3) + "px";
       });
     }
     setSpacers();
-    ScrollTrigger.addEventListener("refreshInit", setSpacers);
+    window.addEventListener("resize", setSpacers);
 
     // Initial states
-    refs.forEach((r) => {
+    refs.forEach((r, ci) => {
       gsap.set(r.items, DIM);
-      gsap.set(r.items[0], ACTIVE);
       gsap.set(r.labels, { opacity: 0 });
       gsap.set(r.nums, { opacity: 0 });
       gsap.set(r.dots, { scale: 0 });
       gsap.set(r.fill, { scaleY: 0, transformOrigin: "50% 0%" });
       gsap.set(r.visual, { "--ang": "135deg" });
       gsap.set(r.card, { transformOrigin: "50% 0%" });
+      if (ci !== 0)
+        gsap.set(r.card, { autoAlpha: 0, yPercent: 8, scale: 0.97 });
       // Idle float on the gradient card
       gsap.to(r.tilt, {
         y: -8,
@@ -877,46 +880,29 @@ const DATA = [
         ease: "sine.inOut",
       });
     });
-    gsap.set(refs[1].card, { yPercent: 110, rotate: 2, scale: 0.96 });
 
-    /* ---- 11.4 State machine: one-off effects when an item becomes active ---- */
-    let currentTab = -1;
-
-    // Move the tab pill and update tab styles
-    function setTab(i, instant = false) {
-      if (i === currentTab) return;
-      currentTab = i;
-      const b = tabs[i];
-      gsap.to(pill, {
-        x: b.offsetLeft,
-        width: b.offsetWidth,
-        duration: instant ? 0 : 0.5,
-        ease: "power3.out",
-      });
-      tabs.forEach((t, k) => {
-        t.setAttribute("aria-selected", k === i);
-        t.classList.toggle("text-white", k === i);
-        t.classList.toggle("text-gray-400", k !== i);
-      });
-    }
-
-    const G = [{ c: 0, i: 0, at: 0 }]; // activation list, filled while building the timeline
-    let activeG = -1;
-
-    function activate(idx, instant = false) {
-      if (idx === activeG) return;
-      const dir = idx > activeG ? 1 : -1;
-      const prev = G[activeG];
-      const next = G[idx];
-      activeG = idx;
+    /* ---- Item activation (per card) ---- */
+    function setItem(ci, i, instant = false) {
+      const r = refs[ci];
+      if (i === r.active) return;
+      const prev = r.active;
+      const dir = i >= prev ? 1 : -1;
+      r.active = i;
       const t = (v) => (instant ? 0 : v);
+      const n = r.items.length;
 
-      setTab(next.c, instant);
+      // Highlight the active item, dim the rest
+      r.items.forEach((it, k) =>
+        gsap.to(it, {
+          ...(k === i ? ACTIVE : DIM),
+          duration: t(0.4),
+          overwrite: "auto",
+        }),
+      );
 
-      // Animate the previous item out
-      if (prev) {
-        const p = refs[prev.c];
-        gsap.to(p.labels[prev.i], {
+      // Previous item out
+      if (prev >= 0) {
+        gsap.to(r.labels[prev], {
           opacity: 0,
           y: -22 * dir,
           filter: "blur(8px)",
@@ -924,7 +910,7 @@ const DATA = [
           ease: "power2.in",
           overwrite: "auto",
         });
-        gsap.to(p.nums[prev.i], {
+        gsap.to(r.nums[prev], {
           opacity: 0,
           yPercent: -35 * dir,
           duration: t(0.4),
@@ -933,11 +919,9 @@ const DATA = [
         });
       }
 
-      const n = refs[next.c];
-
       // Gradient card label
       gsap.fromTo(
-        n.labels[next.i],
+        r.labels[i],
         { opacity: 0, y: 26 * dir, filter: "blur(10px)" },
         {
           opacity: 1,
@@ -952,7 +936,7 @@ const DATA = [
 
       // Giant numeral rolls in
       gsap.fromTo(
-        n.nums[next.i],
+        r.nums[i],
         { opacity: 0, yPercent: 35 * dir },
         {
           opacity: 1,
@@ -965,7 +949,7 @@ const DATA = [
 
       // Title: orange wave rippling through the characters
       gsap.fromTo(
-        n.chars[next.i],
+        r.chars[i],
         { y: 12, color: "#FF8C32" },
         {
           y: 0,
@@ -979,7 +963,7 @@ const DATA = [
 
       // Visual card: springy flip + gradient angle shift
       gsap.fromTo(
-        n.flip,
+        r.flip,
         { rotateY: -20 * dir, scale: 0.94, transformPerspective: 900 },
         {
           rotateY: 0,
@@ -989,158 +973,163 @@ const DATA = [
           overwrite: "auto",
         },
       );
-      gsap.to(n.visual, {
-        "--ang": 135 + next.i * 35 + "deg",
+      gsap.to(r.visual, {
+        "--ang": 135 + i * 35 + "deg",
         duration: t(1),
         ease: "power2.out",
         overwrite: "auto",
       });
 
-      // Progress rail nodes
-      n.nodes.forEach((nd, k) => {
+      // Progress rail
+      gsap.to(r.fill, {
+        scaleY: n > 1 ? i / (n - 1) : 0,
+        duration: t(0.5),
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+      r.nodes.forEach((nd, k) => {
         gsap.to(nd, {
-          scale: k === next.i ? 1.6 : 1,
+          scale: k === i ? 1.6 : 1,
           boxShadow:
-            k === next.i
+            k === i
               ? "0 0 8px 1px rgba(255,100,30,.35)"
               : "0 0 0 0 rgba(255,100,30,0)",
           duration: t(0.4),
           overwrite: "auto",
         });
-        gsap.to(n.dots[k], {
-          scale: k <= next.i ? 1 : 0,
+        gsap.to(r.dots[k], {
+          scale: k <= i ? 1 : 0,
           duration: t(0.4),
           overwrite: "auto",
         });
       });
     }
 
-    // Activate the item that matches the timeline's current time
-    function sync(time, instant) {
-      let idx = 0;
-      for (let k = 0; k < G.length; k++) if (G[k].at <= time) idx = k;
-      activate(idx, instant);
-    }
+    /* ---- Inner scroll drives the active item ---- */
+    const cue = $(".cue");
+    refs.forEach((r, ci) => {
+      const n = r.items.length;
 
-    /* ---- 11.5 Scrubbed master timeline (list motion, card stacking, parallax) ---- */
-    const tl = gsap.timeline({
-      defaults: { ease: "none", immediateRender: false },
+      r.viewport.addEventListener(
+        "scroll",
+        () => {
+          const v = r.viewport;
+          const atEnd =
+            v.scrollTop > 0 &&
+            v.scrollTop + v.clientHeight >= v.scrollHeight - 4;
+          let idx = 0;
+          if (atEnd) idx = n - 1;
+          else
+            r.items.forEach((it, k) => {
+              if (it.offsetTop <= v.scrollTop + v.clientHeight * 0.3) idx = k;
+            });
+          setItem(ci, idx);
+          if (cue)
+            gsap.to(cue, { opacity: 0, duration: 0.3, overwrite: "auto" });
+        },
+        { passive: true },
+      );
+
+      // Clicking an item also activates it (useful when nothing needs scrolling)
+      r.items.forEach((it, k) =>
+        it.addEventListener("click", () => setItem(ci, k)),
+      );
     });
 
-    // Move one card's list from item `from` to item `to`
-    function addStep(ci, from, to, at) {
-      const r = refs[ci];
-      const n = r.items.length;
-      tl.fromTo(
-        r.list,
-        { y: () => -r.items[from].offsetTop },
-        { y: () => -r.items[to].offsetTop, duration: 1, ease: "power1.inOut" },
-        at,
-      );
-      tl.fromTo(r.items[from], ACTIVE, { ...DIM, duration: 1 }, at);
-      tl.fromTo(r.items[to], DIM, { ...ACTIVE, duration: 1 }, at);
-      tl.fromTo(
-        r.fill,
-        { scaleY: from / (n - 1) },
-        { scaleY: to / (n - 1), duration: 1 },
-        at,
-      );
-      G.push({ c: ci, i: to, at: at + 0.5 });
+    /* ---- Tabs: swap cards ---- */
+    let currentTab = -1;
+
+    function setPill(i, instant = false) {
+      const b = tabs[i];
+      gsap.to(pill, {
+        x: b.offsetLeft,
+        width: b.offsetWidth,
+        duration: instant ? 0 : 0.5,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+      tabs.forEach((t, k) => {
+        t.setAttribute("aria-selected", k === i);
+        t.classList.toggle("text-white", k === i);
+        t.classList.toggle("text-gray-400", k !== i);
+      });
     }
 
-    let cursor = 0.5;
-    function addSteps(ci) {
-      const n = refs[ci].items.length;
-      for (let i = 0; i < n - 1; i++) {
-        addStep(ci, i, i + 1, cursor);
-        cursor += 1.5;
+    function showCard(i, instant = false) {
+      if (i === currentTab) return;
+      const prev = currentTab;
+      currentTab = i;
+      setPill(i, instant);
+      const d = instant ? 0 : 1;
+
+      if (prev >= 0) {
+        gsap.to(refs[prev].card, {
+          autoAlpha: 0,
+          yPercent: i > prev ? -6 : 6,
+          scale: 0.97,
+          duration: 0.45 * d,
+          ease: "power2.inOut",
+          overwrite: "auto",
+        });
       }
+
+      const r = refs[i];
+      r.viewport.scrollTop = 0;
+      gsap.fromTo(
+        r.card,
+        { autoAlpha: 0, yPercent: i > prev ? 6 : -6, scale: 0.97 },
+        {
+          autoAlpha: 1,
+          yPercent: 0,
+          scale: 1,
+          duration: 0.6 * d,
+          delay: 0.1 * d,
+          ease: "power3.out",
+          overwrite: "auto",
+        },
+      );
+
+      // Replay the entrance effects for the first item
+      r.active = -1;
+      setItem(i, 0, instant);
     }
 
-    addSteps(0); // Education items
+    tabs.forEach((btn, i) => btn.addEventListener("click", () => showCard(i)));
 
-    const TRANS = cursor;
-    const SWITCH = TRANS + 0.75;
-    const EXP_AT = TRANS + 1.5;
+    showCard(0, true);
+    document.fonts.ready.then(() => setPill(currentTab, true));
+    window.addEventListener("resize", () => setPill(currentTab, true));
 
-    // Experience card slides over; Education card shrinks back behind it
-    tl.fromTo(
-      refs[1].card,
-      { yPercent: 110, rotate: 2, scale: 0.96 },
-      { yPercent: 0, rotate: 0, scale: 1, duration: 1.5, ease: "power3.inOut" },
-      TRANS,
-    );
-    tl.fromTo(
-      refs[0].card,
-      { scale: 1, y: 0, opacity: 1 },
-      { scale: 0.9, y: -44, opacity: 0.5, duration: 1.5, ease: "power2.inOut" },
-      TRANS,
-    );
-
-    G.push({ c: 1, i: 0, at: SWITCH });
-
-    cursor = EXP_AT + 0.5;
-    addSteps(1); // Experience items
-
-    tl.to({}, { duration: 1 }, ">"); // hold at the end
-
-    // Ambient parallax across the whole scroll (optional elements)
-    const TOTAL = tl.duration();
+    /* ---- Ambient parallax on normal page scroll (no pin) ---- */
     const blobA = $(".blob-a");
     const blobB = $(".blob-b");
     const ghost = $(".ghost");
-    const cue = $(".cue");
+    const par = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: wrap,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 0.6,
+      },
+    });
     if (blobA)
-      tl.fromTo(
+      par.fromTo(
         blobA,
         { xPercent: -10, yPercent: 0 },
-        { xPercent: 70, yPercent: 40, duration: TOTAL },
+        { xPercent: 70, yPercent: 40 },
         0,
       );
     if (blobB)
-      tl.fromTo(
+      par.fromTo(
         blobB,
         { xPercent: 0, yPercent: 0 },
-        { xPercent: -60, yPercent: -40, duration: TOTAL },
+        { xPercent: -60, yPercent: -40 },
         0,
       );
-    if (ghost)
-      tl.fromTo(ghost, { xPercent: 0 }, { xPercent: -45, duration: TOTAL }, 0);
-    if (cue) tl.to(cue, { opacity: 0, duration: 0.4 }, 0);
+    if (ghost) par.fromTo(ghost, { xPercent: 0 }, { xPercent: -45 }, 0);
 
-    tl.eventCallback("onUpdate", () => sync(tl.time(), false));
-    sync(0, true);
-
-    /* ---- 11.6 Pin + scrub ---- */
-    const st = ScrollTrigger.create({
-      animation: tl,
-      trigger: wrap,
-      start: "top top",
-      end: () => "+=" + Math.round(window.innerHeight * 0.55 * TOTAL),
-      pin: true,
-      scrub: 0.6,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-    });
-
-    // Re-apply the tab state after every refresh
-    ScrollTrigger.addEventListener("refresh", () => {
-      currentTab = -1;
-      setTab(G[activeG].c, true);
-    });
-    document.fonts.ready.then(() => ScrollTrigger.refresh());
-
-    // Tab click scrolls to that section (through Lenis when active)
-    tabs.forEach((btn, i) => {
-      btn.addEventListener("click", () => {
-        const at = i === 0 ? 0 : EXP_AT;
-        const y = st.start + (at / TOTAL) * (st.end - st.start);
-        if (lenis) lenis.scrollTo(y, { duration: 1.4 });
-        else window.scrollTo({ top: y, behavior: "smooth" });
-      });
-    });
-
-    /* ---- 11.7 Pointer effects ---- */
+    /* ---- Pointer effects ---- */
     // Cursor spotlight on the card dots
     cardsWrap.addEventListener("pointermove", (e) => {
       refs.forEach((r) => {
@@ -1254,7 +1243,6 @@ const DATA = [
   });
 })();
 
-
 // Load more project btn
 (function () {
   const PER_PAGE = 6;
@@ -1266,7 +1254,7 @@ const DATA = [
 
   const items = Array.from(grid.querySelectorAll(":scope > .work-card"));
   const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
+    "(prefers-reduced-motion: reduce)",
   ).matches;
 
   // Show only the first page, hide the rest
@@ -1295,7 +1283,12 @@ const DATA = [
             { opacity: 0, transform: "translateY(24px)" },
             { opacity: 1, transform: "translateY(0)" },
           ],
-          { duration: 500, delay: i * 80, easing: "ease-out", fill: "backwards" }
+          {
+            duration: 500,
+            delay: i * 80,
+            easing: "ease-out",
+            fill: "backwards",
+          },
         );
       }
     });

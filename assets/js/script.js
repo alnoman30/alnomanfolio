@@ -1253,3 +1253,54 @@ const DATA = [
     if (hasGsap()) ScrollTrigger.refresh();
   });
 })();
+
+
+// Load more project btn
+(function () {
+  const PER_PAGE = 6;
+
+  const grid = document.getElementById("works-grid");
+  const btn = document.getElementById("load-more-btn");
+  const status = document.getElementById("works-status");
+  if (!grid || !btn || !status) return;
+
+  const items = Array.from(grid.querySelectorAll(":scope > .work-card"));
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // Show only the first page, hide the rest
+  items.forEach((item, i) => {
+    if (i >= PER_PAGE) item.hidden = true;
+  });
+
+  btn.addEventListener("click", () => {
+    const hiddenItems = items.filter((item) => item.hidden);
+
+    // Nothing left to load: show message and remove the button
+    if (hiddenItems.length === 0) {
+      status.textContent = "No more projects available.";
+      btn.hidden = true;
+      return;
+    }
+
+    // Reveal the next page
+    const nextBatch = hiddenItems.slice(0, PER_PAGE);
+    nextBatch.forEach((item, i) => {
+      item.hidden = false;
+
+      if (!prefersReducedMotion) {
+        item.animate(
+          [
+            { opacity: 0, transform: "translateY(24px)" },
+            { opacity: 1, transform: "translateY(0)" },
+          ],
+          { duration: 500, delay: i * 80, easing: "ease-out", fill: "backwards" }
+        );
+      }
+    });
+
+    // Keyboard users land on the first new card
+    nextBatch[0].focus({ preventScroll: true });
+  });
+})();

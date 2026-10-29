@@ -745,7 +745,7 @@
       ${g.items
         .map(
           (_, i) => `
-        <span class="res-num num-stroke pointer-events-none select-none absolute right-4 md:right-12 -bottom-[0.14em] text-[130px] md:text-[250px] font-extrabold leading-none tracking-tighter">${pad(i + 1)}</span>
+        <span class="res-num num-stroke pointer-events-none select-none absolute right-4 md:right-12 bottom-[-0.14em] text-[130px] md:text-[250px] font-extrabold leading-none tracking-tighter">${pad(i + 1)}</span>
       `,
         )
         .join("")}
@@ -756,7 +756,7 @@
         ${g.items
           .map(
             (_, i) => `
-          <span class="res-node absolute -left-[5px] size-[11px] rounded-full bg-[#0c0d10] border border-white/25"
+          <span class="res-node absolute -left-1.25 size-2.75 rounded-full bg-[#0c0d10] border border-white/25"
                 style="top:calc(${n > 1 ? (i / (n - 1)) * 100 : 0}% - 5px)">
             <i class="res-dot absolute -inset-px rounded-full bg-linear-to-br from-primary to-secondary"></i>
           </span>
@@ -768,7 +768,7 @@
       <div class="relative h-full mx-auto max-w-5xl flex flex-col gap-6 px-6 py-6 md:grid md:grid-cols-2 md:grid-rows-[minmax(0,1fr)] md:gap-14 md:px-20 md:py-14">
 
         <!-- gradient visual -->
-        <div class="res-tilt md:order-2 md:self-start md:justify-self-end w-full md:max-w-[420px] h-36 md:h-[320px] shrink-0">
+        <div class="res-tilt md:order-2 md:self-start md:justify-self-end w-full md:max-w-105 h-36 md:h-80 shrink-0">
           <div class="res-flip h-full w-full">
             <div class="res-visual grad-card relative h-full w-full rounded-2xl overflow-hidden shadow-[0_30px_80px_-40px_rgba(255,77,28,.2)]">
               <div class="sheen pointer-events-none"></div>

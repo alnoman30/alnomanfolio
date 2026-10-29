@@ -87,8 +87,8 @@ This is a static site, so there is nothing to install to view it.
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/alnoman30/Al-Noman-Portfolio.git
-cd Al-Noman-Portfolio
+git clone https://github.com/alnoman30/alnomanfolio.git
+cd alnomanfolio
 ```
 
 **2. Run it locally**

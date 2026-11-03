@@ -423,9 +423,6 @@
   .mt-16 {
     margin-top: calc(var(--spacing) * 16);
   }
-  .mt-\[\.12em\] {
-    margin-top: .12em;
-  }
   .mr-5 {
     margin-right: calc(var(--spacing) * 5);
   }
@@ -452,9 +449,6 @@
   }
   .ml-0\.5 {
     margin-left: calc(var(--spacing) * 0.5);
-  }
-  .ml-1 {
-    margin-left: calc(var(--spacing) * 1);
   }
   .block {
     display: block;
@@ -840,9 +834,6 @@
   }
   .gap-x-16 {
     column-gap: calc(var(--spacing) * 16);
-  }
-  .gap-x-\[\.3em\] {
-    column-gap: .3em;
   }
   .space-x-8 {
     :where(& > :not(:last-child)) {
@@ -1246,9 +1237,6 @@
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
   }
-  .text-\[\.28em\] {
-    font-size: .28em;
-  }
   .text-\[10px\] {
     font-size: 10px;
   }
@@ -1266,12 +1254,6 @@
   }
   .text-\[130px\] {
     font-size: 130px;
-  }
-  .text-\[clamp\(2\.75rem\,10vw\,9rem\)\] {
-    font-size: clamp(2.75rem, 10vw, 9rem);
-  }
-  .text-\[clamp\(4rem\,12vw\,10rem\)\] {
-    font-size: clamp(4rem, 12vw, 10rem);
   }
   .leading-5 {
     --tw-leading: calc(var(--spacing) * 5);
@@ -1300,14 +1282,6 @@
   .leading-11 {
     --tw-leading: calc(var(--spacing) * 11);
     line-height: calc(var(--spacing) * 11);
-  }
-  .leading-\[\.8\] {
-    --tw-leading: .8;
-    line-height: .8;
-  }
-  .leading-\[\.95\] {
-    --tw-leading: .95;
-    line-height: .95;
   }
   .leading-\[1\.3\] {
     --tw-leading: 1.3;
@@ -1361,14 +1335,6 @@
     --tw-tracking: .25em;
     letter-spacing: .25em;
   }
-  .tracking-normal {
-    --tw-tracking: var(--tracking-normal);
-    letter-spacing: var(--tracking-normal);
-  }
-  .tracking-tight {
-    --tw-tracking: var(--tracking-tight);
-    letter-spacing: var(--tracking-tight);
-  }
   .tracking-tighter {
     --tw-tracking: var(--tracking-tighter);
     letter-spacing: var(--tracking-tighter);
@@ -1393,9 +1359,6 @@
   }
   .text-\[\#FFFFFF\] {
     color: #FFFFFF;
-  }
-  .text-\[\#\] {
-    color: #;
   }
   .text-\[\#b3b8b5\] {
     color: #b3b8b5;
@@ -1936,11 +1899,6 @@
   .sm\:gap-6 {
     @media (width >= 40rem) {
       gap: calc(var(--spacing) * 6);
-    }
-  }
-  .sm\:p-10 {
-    @media (width >= 40rem) {
-      padding: calc(var(--spacing) * 10);
     }
   }
   .sm\:px-7 {

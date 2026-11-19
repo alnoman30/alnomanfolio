@@ -14,15 +14,15 @@
 
   var DEFAULTS = {
     images: [
-      "assets/images/socials/image-1.jpg",
-      "assets/images/socials/image-2.jpg",
-      "assets/images/socials/image-3.jpg",
-      "assets/images/socials/image-4.jpg",
-      "assets/images/socials/image-5.jpg",
-      "assets/images/socials/image-6.jpg",
-      "assets/images/socials/image-7.jpg",
-      "assets/images/socials/image-8.jpg",
-      "assets/images/socials/image-10.jpg",
+      "assets/images/socials/abdullah-al-noman-mirror-selfie.jpg",
+      "assets/images/socials/noman-hehe-cafe-cream-kurta.jpg",
+      "assets/images/socials/alnomaan30-motorcycle-pink-sweater.jpg",
+      "assets/images/socials/abdullah-al-noman-white-kurta-black-car.jpg",
+      "assets/images/socials/noman-hehe-black-jacket-cafe.jpg",
+      "assets/images/socials/alnomaan30-maroon-kurta-mural.jpg",
+      "assets/images/socials/abdullah-al-noman-motorcycle-night.jpg",
+      "assets/images/socials/noman-hehe-black-jacket-glasses.jpg",
+      "assets/images/socials/abdullah-al-noman-blue-suit-balcony.jpg",
     ],
     size: 180, // image width in px (height is 5:4)
     distance: 90, // px the cursor must travel before the next image appears

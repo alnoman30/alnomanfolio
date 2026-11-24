@@ -1,14 +1,14 @@
-# Abdullah Al Noman | Frontend Developer Portfolio
+# Abdullah Al Noman | Web Developer Portfolio
 
 [![Live site](https://img.shields.io/badge/live-alnoman.vercel.app-black?style=flat-square)](https://alnoman.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue?style=flat-square)](LICENSE)
 [![Deployed on Vercel](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com/)
 
-The personal portfolio of Abdullah Al Noman, a freelance frontend developer building fast, responsive, accessible websites and web apps with React.js, Tailwind CSS and Laravel.
+The personal portfolio of Abdullah Al Noman, a web developer from Dhaka, Bangladesh. He builds fast, responsive websites and web apps with React, Tailwind CSS and Laravel, works with Shopify, and uses AI tools and prompt engineering to build and automate faster.
 
 **Live site:** [https://alnoman.vercel.app/](https://alnoman.vercel.app/)
 
-![Portfolio preview](https://res.cloudinary.com/dxcqb5aj5/image/upload/v1792931546/abdullah-al-noman_c04epk.png)
+![Portfolio preview](assets/images/og-image.jpg)
 
 ---
 
@@ -89,7 +89,7 @@ More repositories are on [GitHub](https://github.com/alnoman30?tab=repositories)
     ├── fonts/            # Self-hosted variable fonts
     ├── sounds/           # Background music
     └── images/
-        ├── favicon/      # Favicons and app icons
+        ├── favicon/      # Favicons (violet N mark)
         ├── projects/     # Full-page screenshots (+ covers/ thumbnails)
         ├── gallery/      # Photos for the poster wall
         ├── skills/       # Technology icons
@@ -169,7 +169,7 @@ The personal photos, project screenshots and written content are © 2026 Abdulla
 
 ## Contact
 
-**Abdullah Al Noman**, freelance frontend developer, available worldwide.
+**Abdullah Al Noman**, web developer in Dhaka, Bangladesh, available worldwide.
 
 - Email: [alnomaan30@gmail.com](mailto:alnomaan30@gmail.com)
 - Portfolio: [alnoman.vercel.app](https://alnoman.vercel.app/)

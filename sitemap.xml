@@ -3,21 +3,86 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://alnoman.vercel.app/</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
     <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/person.webp</image:loc>
+      <image:loc>https://alnoman.vercel.app/assets/images/og-image.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/abdullah-al-noman-about-me.webp</image:loc>
+      <image:loc>https://alnoman.vercel.app/assets/images/about-me.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/projects/tormuz.webp</image:loc>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/abdullah-al-noman-blue-suit-balcony.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/abdullah-al-noman-mirror-selfie.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/abdullah-al-noman-motorcycle-night.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/abdullah-al-noman-white-kurta-black-car.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/alnomaan30-friends-evening-chat.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/alnomaan30-maroon-kurta-mural.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/alnomaan30-motorcycle-pink-sweater.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/noman-hehe-black-jacket-cafe.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/noman-hehe-black-jacket-glasses.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/noman-hehe-cafe-cream-kurta.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/gallery/noman-hehe-holding-white-cat.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/noman-face.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/noman-hero.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/canvix-agency-reactjs-frontend.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/clickverse.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/covers/canvix-agency-reactjs-frontend.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/covers/clickverse.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/covers/laravel-ecommerce-ultras.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/covers/react-js-task-manager.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/covers/reactjs-panto-furniture.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/covers/syrah-wine-frontend-design.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/covers/tormuz.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://alnoman.vercel.app/assets/images/projects/laravel-ecommerce-ultras.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/projects/clickverse.webp</image:loc>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/react-js-task-manager.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://alnoman.vercel.app/assets/images/projects/reactjs-panto-furniture.webp</image:loc>
@@ -26,67 +91,7 @@
       <image:loc>https://alnoman.vercel.app/assets/images/projects/syrah-wine-frontend-design.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/projects/canvix-agency-reactjs-frontend.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/projects/react-js-task-manager.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-1.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-2.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-3.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-4.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-5.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-6.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-7.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/marquee-item-8.avif</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/abdullah-al-noman-mirror-selfie.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/noman-hehe-cafe-cream-kurta.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/alnomaan30-motorcycle-pink-sweater.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/abdullah-al-noman-white-kurta-black-car.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/noman-hehe-black-jacket-cafe.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/alnomaan30-maroon-kurta-mural.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/abdullah-al-noman-motorcycle-night.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/noman-hehe-black-jacket-glasses.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/alnomaan30-friends-evening-chat.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/abdullah-al-noman-blue-suit-balcony.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://alnoman.vercel.app/assets/images/socials/noman-hehe-holding-white-cat.jpg</image:loc>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/tormuz.webp</image:loc>
     </image:image>
   </url>
 </urlset>

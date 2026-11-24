@@ -29,35 +29,41 @@ The personal portfolio of Abdullah Al Noman, a freelance frontend developer buil
 
 ## Features
 
-- Single-page layout with Home, About, Skills, Education & Experience, Projects, FAQ and Contact sections
-- Project cards with a full-page screenshot that scrolls on hover and a custom "View Work" cursor badge
-- "Load More" button for revealing additional projects
-- Smooth scroll and entrance animations powered by GSAP
-- Sliders powered by Splide
-- Separate `contact.html` page
-- Fully responsive, mobile-first design
-- Respects the `prefers-reduced-motion` setting
+- Single-page layout: Hero, About, Services, Projects, Resume, Toolkit, Gallery, FAQ and Contact
+- Pinned hero with a giant name, portrait and tool tiles that react to scroll (GSAP ScrollTrigger)
+- Character-by-character title reveals and smooth scrolling (Lenis)
+- "Everything your website needs" panel with draggable, physics-driven pills (Matter.js)
+- Horizontal, pinned project showcase; hovering a card scrolls its full-page screenshot
+- Filterable project index with a floating preview that follows the cursor
+- 3D poster wall gallery with autoscroll, pause on hover and drag
+- Buttons and nav with a travelling-light border and flowing gradient
+- Footer name with a gradient that flows left to right
+- Sections switch between dark and light themes as you scroll
+- Fully responsive, and respects the `prefers-reduced-motion` setting
 
 ## Tech stack
 
 | Area | Tools |
 | --- | --- |
 | Markup | HTML5 (semantic) |
-| Styling | Tailwind CSS, custom CSS |
-| Scripting | JavaScript (ES6+) |
-| Animation | GSAP |
-| Sliders | Splide |
-| Images | WebP, AVIF, SVG, Cloudinary (social preview image) |
+| Styling | Tailwind CSS v4 (reset and build), custom CSS partials |
+| Scripting | JavaScript (no framework) |
+| Animation | GSAP + ScrollTrigger, Lenis smooth scroll |
+| Physics | Matter.js |
+| Fonts | Big Shoulders Display, Sora, Fraunces, Caveat (self-hosted) |
+| Images | WebP, JPG, SVG |
 | Hosting | Vercel |
 
 ## Projects showcased
 
 | Project | Stack | Links |
 | --- | --- | --- |
-| Ultras, e-commerce website | Laravel, PHP | [Source code](https://github.com/alnoman30/Ultras-Ecommerce-Fullstack-Laravel) |
-| Clickverse, blog website | Laravel, PHP | [Source code](https://github.com/alnoman30/clickverse-fullstack-laravel) |
+| Tormuz, startup agency website | HTML, Tailwind CSS v4, Vite | [Live site](https://alnoman30.github.io/Tormuz/) |
 | Panto, furniture store website | React.js | [Live demo](https://alnoman-panto-design.vercel.app/) |
+| Ultras, e-commerce website | Laravel, PHP | [Source code](https://github.com/alnoman30/Ultras-Ecommerce-Fullstack-Laravel) |
 | Canvix, agency website | React.js | [Live demo](https://alnoman-canvix-agency.vercel.app/) |
+| Syrah, wine shop front end | Front end, GitHub Pages | [Live site](https://alnoman30.github.io/Syrah_frontend_design/) |
+| Clickverse, blog website | Laravel, PHP | [Source code](https://github.com/alnoman30/clickverse-fullstack-laravel) |
 | Task Assistant, task manager app | React.js | [Live demo](https://alnoman-task-assistant.vercel.app/) |
 
 More repositories are on [GitHub](https://github.com/alnoman30?tab=repositories).
@@ -66,18 +72,28 @@ More repositories are on [GitHub](https://github.com/alnoman30?tab=repositories)
 
 ```text
 .
-├── index.html          # Home page (all main sections)
-├── contact.html        # Contact page
-├── sitemap.xml         # Sitemap for search engines
-├── robots.txt          # Crawler rules and sitemap location
+├── index.html            # The whole site (single page)
+├── sitemap.xml           # Sitemap for search engines (with image entries)
+├── robots.txt            # Crawler rules and sitemap location
+├── package.json          # Tailwind build script
 ├── LICENSE
 └── assets/
-    ├── css/            # style.css, splide.min.css
-    ├── js/             # GSAP, Splide and site scripts
+    ├── css/
+    │   ├── tailwind.css  # Entry file: imports the partials below
+    │   ├── src/          # base, header-hero, sections, footer
+    │   └── style.css     # Built output (npm run build)
+    ├── js/
+    │   ├── main.js       # Interactions and animations
+    │   ├── toss.js       # Physics pills
+    │   └── vendor/       # GSAP, ScrollTrigger, Lenis, Matter.js
+    ├── fonts/            # Self-hosted variable fonts
+    ├── sounds/           # Background music
     └── images/
-        ├── favicon/    # Favicons and app icons
-        ├── projects/   # Project screenshots
-        └── skills/     # Skill and technology icons
+        ├── favicon/      # Favicons and app icons
+        ├── projects/     # Full-page screenshots (+ covers/ thumbnails)
+        ├── gallery/      # Photos for the poster wall
+        ├── skills/       # Technology icons
+        └── og-image.jpg  # Social share preview
 ```
 
 ## Getting started
@@ -91,9 +107,16 @@ git clone https://github.com/alnoman30/alnomanfolio.git
 cd alnomanfolio
 ```
 
-**2. Run it locally**
+**2. Rebuild the CSS after editing styles**
 
-Open `index.html` in your browser, or serve the folder so root-relative paths such as `/assets/...` resolve correctly:
+```bash
+npm install
+npm run build   # compiles assets/css/tailwind.css (+ src/) into assets/css/style.css
+```
+
+**3. Run it locally**
+
+Serve the folder with any static server:
 
 ```bash
 # Option A: Node
@@ -109,19 +132,20 @@ You can also use the VS Code **Live Server** extension.
 
 ## SEO and performance
 
-- Unique `<title>`, meta description and canonical URL on each page
-- Open Graph tags for rich link previews on Facebook, LinkedIn, Instagram DMs and WhatsApp
+- Unique `<title>`, meta description and canonical URL
+- Open Graph and X (Twitter) card tags with a 1200×630 preview image, for rich link previews
 - JSON-LD structured data (`WebSite`, `Person`, `ItemList`, `SoftwareApplication` and `SoftwareSourceCode`) describing the site, the author and the projects
-- `sitemap.xml` and `robots.txt` included
+- `sitemap.xml` (with image entries) and `robots.txt` included
 - Descriptive `alt` text on all meaningful images
 - `width` and `height` on images to avoid layout shift
 - Lazy-loaded images with `loading="lazy"` and `decoding="async"`
-- Modern image formats (WebP and AVIF) where possible
+- Optimised WebP images, with small cover thumbnails for project cards
+- Self-hosted, preloaded fonts
 
 ## Accessibility
 
 - Semantic HTML with a logical heading order
-- `aria-labelledby` on project cards, so each link has a clear accessible name
+- Skip link, visible focus styles and keyboard-friendly navigation
 - Screen-reader-only text that announces links opening in a new tab
 - Decorative elements hidden from assistive technology with `aria-hidden`
 - Motion reduced for users who prefer it
@@ -134,8 +158,8 @@ To deploy your own copy:
 
 1. Fork or clone this repository
 2. Import it into Vercel
-3. Use the default static settings, with no build command needed
-4. Update the URLs in `index.html`, `contact.html`, `sitemap.xml` and `robots.txt` to your own domain
+3. Keep the default settings (Vercel runs `npm run build`, which regenerates `assets/css/style.css`)
+4. Update the URLs in `index.html`, `sitemap.xml` and `robots.txt` to your own domain
 
 ## License
 

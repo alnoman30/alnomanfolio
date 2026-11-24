@@ -1,0 +1,48 @@
+/* ==========================================================================
+   FOOTER
+   A dark closing band: big email, back-to-top, a giant name whose hero-colour
+   gradient flows left to right in a smooth wave, then a quiet bottom row.
+   ========================================================================== */
+
+.footer { position: relative; padding: 70px var(--gutter) 28px; border-top: 1px solid var(--line); overflow: hidden; background: #0a1220; }
+.footer__top { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer__hello { margin: 0 0 6px; color: var(--mute); font-weight: 600; font-size: 15px; }
+.footer__mail { display: inline-block; font-size: clamp(24px, 3.4vw, 52px); font-weight: 700; letter-spacing: -.04em; line-height: 1.1; overflow-wrap: anywhere; background: var(--grad) 0 100% / 0 2px no-repeat; transition: background-size .6s var(--ease), color .3s; }
+.footer__mail:hover { color: var(--accent-text); background-size: 100% 2px; }
+.footer__up { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; border: 1px solid var(--line-2); transition: background .35s, color .35s, border-color .35s; }
+.footer__up svg { width: 22px; height: 22px; transition: transform .5s var(--ease); }
+.footer__up:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.footer__up:hover svg { transform: translateY(-4px); }
+
+/* ---------- Big name ----------
+   Plain, full-opacity type filled with the hero colours. The gradient is a
+   seamless tile (it starts and ends on white) that slides from left to right
+   in an endless, smooth wave. */
+.footer__big {
+  display: flex; justify-content: space-between; gap: .16em; margin: 46px 0 30px; user-select: none;
+  font-family: var(--f-head); font-weight: 900; text-transform: uppercase; font-size: clamp(76px, 23vw, 440px); line-height: .9;
+  padding: .04em 0 .06em;
+  color: transparent; -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #ffffff 0%, #c9bfff 18%, #5e29ff 40%, #8f7bff 62%, #9d8cff 82%, #ffffff 100%);
+  background-size: 50% 100%; background-repeat: repeat-x;
+  -webkit-background-clip: text; background-clip: text;
+  animation: footer-wave 9s linear infinite;
+}
+.footer__big > span { display: block; white-space: nowrap; }
+/* moving by exactly one tile makes the loop seamless */
+@keyframes footer-wave { from { background-position: 0% 0; } to { background-position: 100% 0; } }
+
+.footer__bottom { display: flex; justify-content: space-between; align-items: center; gap: 18px 24px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid var(--line); font-size: 14px; color: var(--mute); }
+.footer__bottom p { margin: 0; }
+.footer__nav, .footer__social { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer__nav a:hover, .footer__social a:hover { color: var(--accent-2-text); }
+.footer__social a { display: inline-flex; }
+.footer__social svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* ---------- Reduced motion: everything readable, nothing moving ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .footer__big, .hero__word, .tile__face { animation: none !important; }
+  .marquee__track { animation: none !important; flex-wrap: wrap; width: auto; }
+  .marquee__item[aria-hidden="true"] { display: none; }
+}

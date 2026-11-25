@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://alnoman.vercel.app/</loc>
-    <lastmod>2026-11-24</lastmod>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -89,6 +89,9 @@
     </image:image>
     <image:image>
       <image:loc>https://alnoman.vercel.app/assets/images/projects/syrah-wine-frontend-design.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://alnoman.vercel.app/assets/images/projects/memoryvault-ai-nextjs-app.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://alnoman.vercel.app/assets/images/projects/tormuz.webp</image:loc>

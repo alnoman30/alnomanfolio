@@ -177,7 +177,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn--small { height: 44px; padding: 0 20px; font-size: 15px; }
 .btn--small svg { width: 32px; height: 32px; padding: 9px; margin-left: -14px; }
 .btn__label { display: inline-block; }
-.btn--download:hover svg { transform: translateY(3px); }
+.btn--view:hover svg { transform: translate(2px, -2px); }
 
 .icon-link {
   display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;

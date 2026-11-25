@@ -1,0 +1,8 @@
+{
+  "headers": [
+    {
+      "source": "/assets/images/noman-hero.webp",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
+}

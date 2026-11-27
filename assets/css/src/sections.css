@@ -183,35 +183,41 @@ html:not(.anim) .timeline__line i { transform: none; }
 .tk__items li:hover { transform: translateY(-3px); border-color: var(--bone); }
 .tk__items img { width: 20px; height: 20px; object-fit: contain; }
 
-/* ---------- Gallery (off screen) ---------- */
-.gallery { padding: clamp(84px, 10vw, 150px) 0; overflow: hidden; }
-.gallery__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto 48px; }
-.gallery__head p { margin: 0; max-width: 380px; color: var(--bone-2); }
-/* 3D poster wall: a tilted plane of photo columns that scroll endlessly,
-   neighbouring columns in opposite directions (see main.js: autoscroll,
-   pause on hover, drag). */
-.wall {
-  position: relative; height: clamp(520px, 62vw, 860px); overflow: hidden; perspective: 1500px;
-  cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
-  -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
-  mask-composite: intersect;
+/* ---------- Gallery (off screen): photo burst ----------
+   A canvas behind the heading keeps throwing small spinning photo
+   "particles" out from the centre. On scroll the real photos burst out
+   from behind the heading, spin, then settle as tilted photos (main.js).
+   Without motion the photos simply rest in their settled spots. */
+.burst { position: relative; }
+.burst__stage { position: relative; height: 100vh; height: 100svh; min-height: 600px; overflow: hidden; }
+.burst__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: .75; pointer-events: none; }
+.burst__head {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 2;
+  width: min(92vw, 720px); text-align: center; pointer-events: none;
 }
-.wall__plane {
-  position: absolute; left: 50%; top: 50%; width: 150%; display: flex; gap: clamp(12px, 1.4vw, 22px);
-  transform: translate(-50%, -50%) rotateX(42deg) rotateZ(-20deg) scale(1.05);
-  transform-style: preserve-3d;
+.burst__head a { pointer-events: auto; }
+.burst__head .title { font-size: clamp(56px, 9.5vw, 144px); }
+.burst__note { margin: 18px auto 0; max-width: 380px; color: var(--bone-2); }
+.burst__item {
+  position: absolute; left: 50%; top: 50%; margin: 0; z-index: 3;
+  width: clamp(100px, 9.5vw, 160px);
+  transform: translate(-50%, -50%);   /* the figure only centres; GSAP moves .burst__fly inside it */
 }
-.wall__col { flex: 1 1 0; min-width: 0; }
-.wall__track { display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 22px); will-change: transform; }
-.wall__track figure { margin: 0; aspect-ratio: 4 / 5; border-radius: 18px; overflow: hidden; background: var(--ink-3); box-shadow: 0 28px 50px -22px rgba(0, 0, 0, .85), inset 0 0 0 1px rgba(255, 255, 255, .06); }
-.wall__track img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.78) saturate(.9); transition: filter .5s, transform .8s var(--ease); pointer-events: none; -webkit-user-drag: none; }
-.wall.is-dragging { cursor: grabbing; }
-.wall__track figure:hover img { filter: none; transform: scale(1.06); }
+.burst__fly {
+  transform: translate(calc(var(--x) * 1vw), calc(var(--y) * 1vh)) rotate(calc(var(--r) * 1deg));
+  will-change: transform;
+}
+.burst__item:hover { z-index: 6; }
+.burst__card {
+  border-radius: 14px; overflow: hidden; background: var(--ink-3);
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, .7);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.burst__card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.burst__item:hover .burst__card { transform: scale(1.12) rotate(calc(var(--r) * -1deg)); box-shadow: 0 40px 70px -24px rgba(0, 0, 0, .75); }
 @media (max-width: 700px) {
-  .wall { height: 560px; }
-  .wall__plane { width: 220%; }
-  .wall__col:nth-child(n+5) { display: none; }
+  .burst__item { width: 92px; }
+  .burst__card { border-radius: 10px; }
 }
 
 /* ---------- FAQ ---------- */

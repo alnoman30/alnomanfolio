@@ -5,10 +5,9 @@
 /* ---------- Header ---------- */
 .nav {
   position: fixed; left: 0; right: 0; top: 0; z-index: 100;
-  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px;
   padding: 18px var(--gutter); transition: transform .6s var(--ease), background .4s, backdrop-filter .4s;
 }
-.nav.is-scrolled { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .nav.is-hidden { transform: translateY(-110%); }
 .nav__logo { display: inline-flex; align-items: center; gap: 12px; justify-self: start; font-weight: 800; font-size: 18px; letter-spacing: -.02em; }
 .nav__mark {
@@ -19,21 +18,23 @@
 .nav__logo:hover .nav__mark { transform: rotate(-8deg) scale(1.06); }
 .nav__logo-text span { color: var(--accent-2-text); }
 
-/* nav pill: same travelling-light border as the buttons */
+/* nav pill: sits in its own fixed layer so mix-blend-mode: difference can
+   blend it with the page. White text and border invert against whatever is
+   behind them, so the menu stays readable on dark sections and on photos. */
+.nav-float {
+  position: fixed; top: 41px; left: 50%; z-index: 101; translate: -50% -50%;
+  mix-blend-mode: difference; transition: transform .6s var(--ease);
+}
+.nav.is-hidden ~ .nav-float { transform: translateY(-120px); }
 .nav__links {
-  display: flex; gap: 4px; padding: 6px; border-radius: 999px; border: 1px solid transparent; backdrop-filter: blur(10px);
-  background:
-    linear-gradient(180deg, rgba(28, 42, 66, .92), rgba(17, 29, 48, .92)) padding-box,
-    conic-gradient(from var(--spin), rgba(255, 255, 255, .1) 0deg, #6d53ff 50deg, #ffffff 85deg, #5e29ff 120deg, rgba(255, 255, 255, .1) 170deg,
-      rgba(255, 255, 255, .1) 230deg, #3f00ff 290deg, rgba(255, 255, 255, .1) 360deg) border-box;
-  animation: spin-grad 5s linear infinite;
+  display: flex; gap: 4px; padding: 6px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .4);
 }
 .nav__links a {
-  position: relative; padding: 8px 16px; border-radius: 999px; font-size: 15px; font-weight: 500; color: var(--bone-2);
+  position: relative; padding: 8px 16px; border-radius: 999px; font-size: 15px; font-weight: 500; color: #ffffff;
   transition: color .3s, background .3s;
 }
-.nav__links a:hover { color: var(--bone); }
-.nav__links a.is-active { color: #ffffff; background: linear-gradient(110deg, #2700ff, #5e29ff, #8f7bff, #5e29ff, #2700ff); background-size: 200% 100%; animation: flow-grad 3s linear infinite; }
+.nav__links a:hover { background: rgba(255, 255, 255, .16); }
+.nav__links a.is-active { color: #000000; background: #ffffff; }
 
 .nav__right { display: flex; align-items: center; gap: 12px; justify-self: end; }
 

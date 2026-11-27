@@ -208,86 +208,6 @@
     });
   }
 
-  /* ---------- 3D poster wall (autoscroll, pause on hover, drag) ----------
-     Each column scrolls endlessly on its own, neighbours in opposite
-     directions. Hovering eases the wall to a stop; dragging (mouse or touch)
-     pushes the columns along and lets go with a little momentum. Scrolling
-     the page gives them a short boost. With reduced motion there is no
-     autoscroll, but dragging still works. Runs only while on screen. */
-  var wall = $("[data-wall]");
-  if (wall) {
-    var cols = $$(".wall__col", wall).map(function (col, i) {
-      var track = $(".wall__track", col);
-      Array.prototype.slice.call(track.children).forEach(function (fig) {   // clone once for a seamless loop
-        var c = fig.cloneNode(true);
-        c.setAttribute("aria-hidden", "true");
-        $$("img", c).forEach(function (im) { im.alt = ""; });
-        track.appendChild(c);
-      });
-      return { track: track, dir: col.dataset.dir === "-1" ? -1 : 1, speed: 26 + (i % 3) * 7, h: 0 };
-    });
-    function measureWall() { cols.forEach(function (c) { c.h = c.track.scrollHeight / 2; }); }
-    measureWall();
-    window.addEventListener("resize", measureWall);
-    window.addEventListener("load", measureWall);
-
-    var offset = 0, play = reduce ? 0 : 1, playTarget = play, boost = 0, dragV = 0;
-    var hovering = false, dragging = false, lastP = null, wallOn = false, wallRaf = 0, lastT = 0;
-    // direction of a column on screen after the plane's rotateZ(-20deg)
-    var AX = Math.sin(20 * Math.PI / 180), AY = Math.cos(20 * Math.PI / 180);
-
-    function wrap(v, h) { return h ? ((v % h) + h) % h : 0; }
-    function renderWall() {
-      cols.forEach(function (c) { c.track.style.transform = "translate3d(0," + (-wrap(offset * c.dir * c.speed / 30, c.h)).toFixed(1) + "px,0)"; });
-    }
-    function wallTick(now) {
-      wallRaf = 0;
-      var dt = lastT ? Math.min(0.05, (now - lastT) / 1000) : 0.016; lastT = now;
-      playTarget = (hovering || dragging || reduce) ? 0 : 1;
-      play += (playTarget - play) * Math.min(1, dt * 5);            // ease in and out of pauses
-      boost *= Math.pow(0.04, dt);                                   // scroll boost fades quickly
-      if (!dragging) { offset += dragV * dt; dragV *= Math.pow(0.02, dt); }   // momentum after a drag
-      offset += 30 * dt * (play + boost);
-      renderWall();
-      if (wallOn) wallRaf = requestAnimationFrame(wallTick);
-    }
-    function startWall() { if (!wallRaf && wallOn) { lastT = 0; wallRaf = requestAnimationFrame(wallTick); } }
-    renderWall();
-
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (en) { wallOn = en[0].isIntersecting; startWall(); }).observe(wall);
-    } else { wallOn = true; startWall(); }
-
-    var lastWY = window.scrollY;
-    window.addEventListener("scroll", function () {
-      var dy = window.scrollY - lastWY; lastWY = window.scrollY;
-      if (wallOn && !reduce) boost = Math.min(4, boost + Math.abs(dy) * 0.012);
-    }, { passive: true });
-
-    if (finePointer) {
-      wall.addEventListener("mouseenter", function () { hovering = true; });
-      wall.addEventListener("mouseleave", function () { hovering = false; });
-    }
-    wall.addEventListener("pointerdown", function (e) {
-      dragging = true; dragV = 0; lastP = { x: e.clientX, y: e.clientY, t: performance.now() };
-      wall.classList.add("is-dragging");
-      try { wall.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-    });
-    wall.addEventListener("pointermove", function (e) {
-      if (!dragging || !lastP) return;
-      var now = performance.now(), dx = e.clientX - lastP.x, dy = e.clientY - lastP.y;
-      var along = -(dx * AX + dy * AY) * 1.1;                        // drag along the columns
-      offset += along;
-      dragV = along / Math.max(0.008, (now - lastP.t) / 1000) * 0.5;
-      lastP = { x: e.clientX, y: e.clientY, t: now };
-      if (!wallRaf) renderWall();
-    });
-    function endWallDrag() { if (!dragging) return; dragging = false; lastP = null; wall.classList.remove("is-dragging"); }
-    wall.addEventListener("pointerup", endWallDrag);
-    wall.addEventListener("pointercancel", endWallDrag);
-    wall.addEventListener("dragstart", function (e) { e.preventDefault(); });
-  }
-
   function refresh() { if (hasGSAP) ScrollTrigger.refresh(); }
 
   /* ---------- stop here without GSAP or with reduced motion ---------- */
@@ -667,11 +587,96 @@
     gsap.to($(".timeline__line i", t), { scaleY: 1, ease: "none", scrollTrigger: { trigger: t, start: "top 75%", end: "bottom 60%", scrub: true } });
   });
 
-  /* ---------- 3D poster wall: rises in when it comes into view ---------- */
-  var wallEl = $("[data-wall]");
-  if (wallEl) {
-    gsap.set(wallEl, { opacity: 0, scale: 0.94 });
-    whenVisible(wallEl, function () { gsap.to(wallEl, { opacity: 1, scale: 1, duration: 1.4, ease: "expo.out" }); }, 0.95);
+  /* ---------- off screen: photo burst ----------
+     1. Canvas loop (inspired by GreenSock's "Canvas particles" pen): small
+        spinning photo particles keep flying out from the centre while the
+        section is on screen.
+     2. Scroll: the stage pins, the real photos burst out from behind the
+        heading with a spin, then settle as tilted polaroids. */
+  var burstSec = $("[data-burst]");
+  if (burstSec) {
+    var bStage = $(".burst__stage", burstSec);
+    var bItems = $$(".burst__item", burstSec);
+
+    // 1 · canvas particles
+    var cvs = $(".burst__canvas", burstSec), ctx = cvs.getContext("2d");
+    var dpr = Math.min(2, window.devicePixelRatio || 1), cw = 0, ch = 0;
+    function sizeCanvas() {
+      cw = bStage.clientWidth; ch = bStage.clientHeight;
+      cvs.width = cw * dpr; cvs.height = ch * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    sizeCanvas();
+    window.addEventListener("resize", sizeCanvas);
+    var srcs = bItems.map(function (it) { return $("img", it).getAttribute("src"); });
+    var pics = srcs.map(function (src) { var im = new Image(); im.decoding = "async"; im.src = src; return im; });
+    var parts = [];
+    var COUNT = window.innerWidth < 700 ? 22 : 40;
+    for (var pi = 0; pi < COUNT; pi++) {
+      var pt = { x: 0, y: 0, scale: 0, rotate: 0, img: pics[pi % pics.length] };
+      parts.push(pt);
+      var ang = Math.random() * Math.PI * 2;
+      pt.tl = gsap.timeline({ repeat: -1, paused: true });
+      pt.tl.fromTo(pt, { x: 0, y: 0, scale: 0, rotate: gsap.utils.random(-90, 90) },
+          { x: function () { return Math.cos(ang) * Math.max(cw, ch) * 0.75; }, y: function () { return Math.sin(ang) * Math.max(cw, ch) * 0.75; },
+            scale: gsap.utils.random(0.6, 1.3), rotate: "+=" + gsap.utils.random(-360, 360), duration: gsap.utils.random(4, 7), ease: "power1.in" });
+      pt.tl.progress(Math.random());                         // start each particle mid-flight
+    }
+    function drawParts() {
+      ctx.clearRect(0, 0, cw, ch);
+      parts.forEach(function (pt) {
+        var im = pt.img;
+        if (!im.complete || !im.naturalWidth || pt.scale <= 0.01) return;
+        var w = 64 * pt.scale, h = w * 1.25;
+        ctx.save();
+        ctx.translate(cw / 2 + pt.x, ch / 2 + pt.y);
+        ctx.rotate(pt.rotate * Math.PI / 180);
+        ctx.globalAlpha = Math.min(1, pt.scale);
+        ctx.drawImage(im, -w / 2, -h / 2, w, h);
+        ctx.restore();
+      });
+    }
+    var partsOn = false;
+    function setParts(on) {
+      if (on === partsOn) return;
+      partsOn = on;
+      parts.forEach(function (pt) { on ? pt.tl.play() : pt.tl.pause(); });
+      on ? gsap.ticker.add(drawParts) : gsap.ticker.remove(drawParts);
+    }
+    ScrollTrigger.create({ trigger: burstSec, start: "top bottom", end: "bottom top", onToggle: function (st) { setParts(st.isActive); } });
+
+    // 2 · scroll: burst out, then settle as polaroids
+    // phones: no room beside the heading, so the polaroids sit in rows above and below it
+    var MOBILE_SPOTS = [[-32, -40], [0, -42], [32, -39], [-33, -25], [0, -27], [33, -24], [-32, 28], [0, 30], [32, 27], [-20, 43], [20, 44]];
+    function applySpots() {
+      var m = window.innerWidth < 700;
+      bItems.forEach(function (it, i) {
+        if (!it.dataset.dx) { it.dataset.dx = it.style.getPropertyValue("--x"); it.dataset.dy = it.style.getPropertyValue("--y"); }
+        var sp = m && MOBILE_SPOTS[i];
+        it.style.setProperty("--x", sp ? sp[0] : it.dataset.dx);
+        it.style.setProperty("--y", sp ? sp[1] : it.dataset.dy);
+      });
+    }
+    applySpots();
+    ScrollTrigger.addEventListener("refreshInit", applySpots);
+    var px = function (it) { return function () { return parseFloat(it.style.getPropertyValue("--x")) * bStage.clientWidth / 100; }; };
+    var py = function (it) { return function () { return parseFloat(it.style.getPropertyValue("--y")) * bStage.clientHeight / 100; }; };
+    var btl = gsap.timeline({
+      scrollTrigger: { trigger: burstSec, start: "top top", end: function () { return "+=" + window.innerHeight * 1.8; }, pin: bStage, scrub: 0.8, invalidateOnRefresh: true }
+    });
+    bItems.forEach(function (it, i) {
+      var r = parseFloat(it.style.getPropertyValue("--r")) || 0;
+      var ang = Math.atan2(parseFloat(it.style.getPropertyValue("--y")), parseFloat(it.style.getPropertyValue("--x")));
+      var far = function () { return Math.max(bStage.clientWidth, bStage.clientHeight) * 0.62; };
+      var fly = $(".burst__fly", it);
+      gsap.set(fly, { transform: "none" });
+      btl.fromTo(fly,
+        { x: 0, y: 0, scale: 0.2, rotation: gsap.utils.random(-180, 180), opacity: 0 },
+        { x: function () { return Math.cos(ang) * far(); }, y: function () { return Math.sin(ang) * far(); }, scale: 1.25,
+          rotation: r + (i % 2 ? 540 : -540), opacity: 1, duration: 0.5, ease: "power3.out" }, i * 0.02)
+        .to(fly, { x: px(it), y: py(it), scale: 1, rotation: r, duration: 0.5, ease: "back.out(1.4)" }, 0.55 + i * 0.015);
+    });
+    btl.fromTo(".burst__head", { scale: 0.85 }, { scale: 1, duration: 0.6, ease: "power2.out" }, 0);
   }
 
   /* ---------- contact photo: image reveal + slow parallax ---------- */

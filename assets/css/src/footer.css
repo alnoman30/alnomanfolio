@@ -29,6 +29,12 @@
   animation: footer-wave 9s linear infinite;
 }
 .footer__big > span { display: block; white-space: nowrap; }
+
+/* WebGL water layer (assets/js/footer-water.js). Once the canvas is drawing,
+   the DOM letters stay for layout and screen size but are hidden. */
+.footer__big { position: relative; }
+.footer__big.is-gl { background: none; animation: none; }
+.footer__water { position: absolute; pointer-events: none; display: block; }
 /* moving by exactly one tile makes the loop seamless */
 @keyframes footer-wave { from { background-position: 0% 0; } to { background-position: 100% 0; } }
 

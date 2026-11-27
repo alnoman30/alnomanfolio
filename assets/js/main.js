@@ -659,8 +659,8 @@
     }
     applySpots();
     ScrollTrigger.addEventListener("refreshInit", applySpots);
-    var px = function (it) { return function () { return parseFloat(it.style.getPropertyValue("--x")) * bStage.clientWidth / 100; }; };
-    var py = function (it) { return function () { return parseFloat(it.style.getPropertyValue("--y")) * bStage.clientHeight / 100; }; };
+    var bx = function (it) { return function () { return parseFloat(it.style.getPropertyValue("--x")) * bStage.clientWidth / 100; }; };
+    var by = function (it) { return function () { return parseFloat(it.style.getPropertyValue("--y")) * bStage.clientHeight / 100; }; };
     var btl = gsap.timeline({
       scrollTrigger: { trigger: burstSec, start: "top top", end: function () { return "+=" + window.innerHeight * 1.8; }, pin: bStage, scrub: 0.8, invalidateOnRefresh: true }
     });
@@ -674,7 +674,7 @@
         { x: 0, y: 0, scale: 0.2, rotation: gsap.utils.random(-180, 180), opacity: 0 },
         { x: function () { return Math.cos(ang) * far(); }, y: function () { return Math.sin(ang) * far(); }, scale: 1.25,
           rotation: r + (i % 2 ? 540 : -540), opacity: 1, duration: 0.5, ease: "power3.out" }, i * 0.02)
-        .to(fly, { x: px(it), y: py(it), scale: 1, rotation: r, duration: 0.5, ease: "back.out(1.4)" }, 0.55 + i * 0.015);
+        .to(fly, { x: bx(it), y: by(it), scale: 1, rotation: r, duration: 0.5, ease: "back.out(1.4)" }, 0.55 + i * 0.015);
     });
     btl.fromTo(".burst__head", { scale: 0.85 }, { scale: 1, duration: 0.6, ease: "power2.out" }, 0);
   }
